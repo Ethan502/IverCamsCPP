@@ -22,8 +22,6 @@ int main()
     AVT::VmbAPI::CameraPtrVector cameras; //initialize the camera list
 
     std::cout<<"Vimba C++ API Version: "<<apicontrol.GetVersion()<<std::endl; //print the current version
-    std::cout<<CAMERA_COUNT<<std::endl;
-
 
     err = apicontrol.StartUp(); //start up vimba
     
@@ -47,27 +45,31 @@ int main()
     }
     else if (err == VmbErrorSuccess)
     {
-        std::cout<<"Starting the cams";
+        std::cout<<"Starting the cams"<<std::endl;
         std::string strCameraID;
 
         if(cameras.size() == CAMERA_COUNT) //make sure that 3 cameras are being used
         {
+            std::cout<<"Got the right number"<<std::endl;
             err = cameras[0]->GetID(strCameraID);
             if(VmbErrorSuccess == err)
             {
                 Config0.setCameraID(strCameraID);
+                std::cout<<"Got the cam0 set"<<std::endl;
             }
             else{std::cout<<"Camera 0 not found. ID number " << cameras[0]->GetID(strCameraID) << std::endl;}
             err = cameras[1]->GetID(strCameraID);
             if(VmbErrorSuccess == err)
             {
                 Config1.setCameraID(strCameraID);
+                std::cout<<"Got the cam1 set"<<std::endl;
             }
             else{std::cout<<"Camera 1 not found. ID number " << cameras[1]->GetID(strCameraID) << std::endl;}
             err = cameras[2]->GetID(strCameraID);
             if(VmbErrorSuccess == err)
             {
                 Config2.setCameraID(strCameraID);
+                std::cout<<"Got the cam2 set"<<std::endl;
             }
             else{std::cout<<"Camera 2 not found. ID number " << cameras[2]->GetID(strCameraID) << std::endl;}
         }
