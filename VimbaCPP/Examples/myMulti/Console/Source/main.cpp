@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <sstream>
 #include <string>
+#include <thread>
 
 #include "VimbaCPP/Include/VimbaCPP.h"
 #include "Common/StreamSystemInfo.h"
@@ -11,6 +12,10 @@
 
 #define CAMERA_COUNT 3
 
+
+void grabber(AVT::VmbAPI::Examples::ApiController &control,
+                 AVT::VmbAPI::Examples::ProgramConfig &fig);
+
 int main()
 {
     VmbErrorType err; //initialize the variable used for error checking
@@ -18,6 +23,7 @@ int main()
     AVT::VmbAPI::Examples::ProgramConfig Config0;
     AVT::VmbAPI::Examples::ProgramConfig Config1;
     AVT::VmbAPI::Examples::ProgramConfig Config2;
+   //std::vector<AVT::VmbAPI::Examples::ProgramConfig> figs(Config0,Config1,Config2);
 
     AVT::VmbAPI::CameraPtrVector cameras; //initialize the camera list
 
@@ -38,6 +44,8 @@ int main()
             }
         }
     }
+    else{std::cout<<"Could not start up apicontroller"<<std::endl;}
+    
     if(err == VmbErrorNotFound)
     {
         std::cout<<"No cameras found"<<std::endl;
@@ -48,6 +56,7 @@ int main()
         std::cout<<"Starting the cams"<<std::endl;
         std::string strCameraID;
 
+        std::vector<bool> truths;
         if(cameras.size() == CAMERA_COUNT) //make sure that 3 cameras are being used
         {
             std::cout<<"Got the right number"<<std::endl;
@@ -56,6 +65,7 @@ int main()
             {
                 Config0.setCameraID(strCameraID);
                 std::cout<<"Got the cam0 set"<<std::endl;
+                truths.push_back(true);
             }
             else{std::cout<<"Camera 0 not found. ID number " << cameras[0]->GetID(strCameraID) << std::endl;}
             err = cameras[1]->GetID(strCameraID);
@@ -63,6 +73,7 @@ int main()
             {
                 Config1.setCameraID(strCameraID);
                 std::cout<<"Got the cam1 set"<<std::endl;
+                truths.push_back(true);
             }
             else{std::cout<<"Camera 1 not found. ID number " << cameras[1]->GetID(strCameraID) << std::endl;}
             err = cameras[2]->GetID(strCameraID);
@@ -70,16 +81,38 @@ int main()
             {
                 Config2.setCameraID(strCameraID);
                 std::cout<<"Got the cam2 set"<<std::endl;
+                truths.push_back(true);
             }
             else{std::cout<<"Camera 2 not found. ID number " << cameras[2]->GetID(strCameraID) << std::endl;}
         }
         else {std::cout<<"Wrong number of cameras detected"<<std::endl;}
 
-        //the apicontroller class and the camera class can both grab single images with frame pointers.
-        // need to find how to make a frame pointer and save it
+        //make sure that all the camera ID's were set
+        if(truths.at(0) == true && truths.at(1) == true && truths.at(2) == true)
+        {
+            err = VmbErrorSuccess;
+            std::cout<<"all cam ID's verified"<<std::endl;
+        }
+        else
+        {
+            err=VmbErrorNotFound;
+            std::cout<<"Not all cam ID's were set"<<std::endl;
+        }
 
+        if(err = VmbErrorSuccess)   //this section should start the threading process
+        {
+            std::thread t0(grabber,apicontrol,Config0);
+            std::thread t1(grabber,apicontrol,Config1);
+            std::thread t2(grabber,apicontrol,Config2);
+
+
+            t0.join();
+            t1.join();
+            t2.join();
+
+        }
+        apicontrol.ShutDown();
     }
-
 
     
 
@@ -90,4 +123,20 @@ int main()
 
 
     return 0;
+}
+
+
+
+void grabber(AVT::VmbAPI::Examples::ApiController &control,
+                 AVT::VmbAPI::Examples::ProgramConfig &fig)
+{
+    VmbErrorType err;
+    err = control.StartContinuousImageAcquisition(fig);
+    if(VmbErrorSuccess == err)
+    {
+        std::cout<<"Press to stop"<<std::endl;
+        getchar();
+
+        control.StopContinuousImageAcquisition();
+    }
 }
