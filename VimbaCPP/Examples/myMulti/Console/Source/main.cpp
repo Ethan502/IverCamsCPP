@@ -13,8 +13,8 @@
 #define CAMERA_COUNT 3
 
 
-void grabber(AVT::VmbAPI::Examples::ApiController &control,
-                 AVT::VmbAPI::Examples::ProgramConfig &fig);
+//void grabber(AVT::VmbAPI::Examples::ApiController &control,
+//               AVT::VmbAPI::Examples::ProgramConfig &fig);
 
 int main()
 {
@@ -99,16 +99,18 @@ int main()
             std::cout<<"Not all cam ID's were set"<<std::endl;
         }
 
-        if(err = VmbErrorSuccess)   //this section should start the threading process
+        if(err = VmbErrorSuccess)   //this section should start the image aquisition process
         {
-            std::thread t0(grabber,apicontrol,Config0);
-            std::thread t1(grabber,apicontrol,Config1);
-            std::thread t2(grabber,apicontrol,Config2);
+            // err = apicontrol.StartMulticamContinuousImageAcquisition(cameras);
 
+            // if(VmbErrorSuccess == err)
+            // {
+            //     std::cout<<"Press <enter> to stop acquisition..."<<std::endl;
+            //     getchar();
 
-            t0.join();
-            t1.join();
-            t2.join();
+            //     apicontrol.StopMulticamContinuousImageAcquisition(cameras);
+            // }
+
 
         }
         apicontrol.ShutDown();
@@ -127,16 +129,16 @@ int main()
 
 
 
-void grabber(AVT::VmbAPI::Examples::ApiController &control,
-                 AVT::VmbAPI::Examples::ProgramConfig &fig)
-{
-    VmbErrorType err;
-    err = control.StartContinuousImageAcquisition(fig);
-    if(VmbErrorSuccess == err)
-    {
-        std::cout<<"Press to stop"<<std::endl;
-        getchar();
+// void grabber(AVT::VmbAPI::Examples::ApiController &control,
+//                  AVT::VmbAPI::Examples::ProgramConfig &fig)
+// {
+//     VmbErrorType err;
+//     err = control.StartContinuousImageAcquisition(fig);
+//     if(VmbErrorSuccess == err)
+//     {
+//         std::cout<<"Press to stop"<<std::endl;
+//         getchar();
 
-        control.StopContinuousImageAcquisition();
-    }
-}
+//         control.StopContinuousImageAcquisition();
+//     }
+// }

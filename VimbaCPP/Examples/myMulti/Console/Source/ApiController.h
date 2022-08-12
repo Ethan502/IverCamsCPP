@@ -30,6 +30,8 @@
 #ifndef AVT_VMBAPI_EXAMPLES_APICONTROLLER
 #define AVT_VMBAPI_EXAMPLES_APICONTROLLER
 
+#define MULTI_CAMERA_SUPPORT 1
+
 #include <string>
 
 #include "VimbaCPP/Include/VimbaCPP.h"
@@ -111,11 +113,18 @@ class ApiController
     //
     std::string         GetVersion() const;
 
+    VmbErrorType PrepareCamera(CameraPtr pcamera);
+    VmbErrorType StartMulticamCapture(AVT::VmbAPI::CameraPtrVector cameras);
+    VmbErrorType StopMulticamCapture(AVT::VmbAPI::CameraPtrVector cameras);
+
   private:
     VmbErrorType        PrepareCamera();
     VimbaSystem &       m_system;                   // A reference to our Vimba singleton
     CameraPtr           m_pCamera;                  // The currently streaming camera
     FrameObserver*      m_pFrameObserver;           // Every camera has its own frame observer
+
+  CameraPtrVector m_OpenCameras;
+	std::vector<FrameObserver *> m_camObservers;
 };
 
 }}} // namespace AVT::VmbAPI::Examples
