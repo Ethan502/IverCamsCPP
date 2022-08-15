@@ -101,17 +101,24 @@ int main()
 
         if(err = VmbErrorSuccess)   //this section should start the image aquisition process
         {
-            // err = apicontrol.StartMulticamContinuousImageAcquisition(cameras);
+           //threading with the apiconrol.startcontinurous aquisition wont work
 
-            // if(VmbErrorSuccess == err)
-            // {
-            //     std::cout<<"Press <enter> to stop acquisition..."<<std::endl;
-            //     getchar();
+           //this might work?
+           AVT::VmbAPI::Examples::FrameObserver* m_pFrameObserver = new AVT::VmbAPI::Examples::FrameObserver( 
+            cameras[0], Config0.getFrameInfos(), Config0.getColorProcessing(), Config0.getRGBValue() );
 
-            //     apicontrol.StopMulticamContinuousImageAcquisition(cameras);
-            // }
+            /*
+           err = cameras[0]->StartContinuousImageAcquisition(3,AVT::VmbAPI::IFrameObserverPtr(m_pFrameObserver),
+           Config0.getAllocAndAnnounce() ? AVT::VmbAPI::FrameAllocation_AllocAndAnnounceFrame : AVT::VmbAPI::FrameAllocation_AnnounceFrame);
+            */
 
+            std::thread t1(cameras[0]->StartContinuousImageAcquisition,3,AVT::VmbAPI::IFrameObserverPtr(m_pFrameObserver),
+            Config0.getAllocAndAnnounce() ? AVT::VmbAPI::FrameAllocation_AllocAndAnnounceFrame : AVT::VmbAPI::FrameAllocation_AnnounceFrame);
 
+            t1.join();
+
+            //ok, as of right now, this method and the apicontrol methond return the error of: invalid use of non-static member function
+            //going to need to fix that for anything to work, it seems
         }
         apicontrol.ShutDown();
     }
