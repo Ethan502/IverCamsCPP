@@ -98,28 +98,39 @@ int main()
             err=VmbErrorNotFound;
             std::cout<<"Not all cam ID's were set"<<std::endl;
         }
-
-        if(err = VmbErrorSuccess)   //this section should start the image aquisition process
+        if(err == VmbErrorSuccess)   //this section should start the image aquisition process
         {
-           //threading with the apiconrol.startcontinurous aquisition wont work
+            std::cout<<"Entered the cap section"<<std::endl;
+            //threading with the apiconrol.startcontinurous aquisition wont work
 
-           //this might work?
-           AVT::VmbAPI::Examples::FrameObserver* m_pFrameObserver = new AVT::VmbAPI::Examples::FrameObserver( 
+            //this might work?
+            AVT::VmbAPI::Examples::FrameObserver* m_pFrameObserver = new AVT::VmbAPI::Examples::FrameObserver( 
             cameras[0], Config0.getFrameInfos(), Config0.getColorProcessing(), Config0.getRGBValue() );
 
-            /*
-           err = cameras[0]->StartContinuousImageAcquisition(3,AVT::VmbAPI::IFrameObserverPtr(m_pFrameObserver),
-           Config0.getAllocAndAnnounce() ? AVT::VmbAPI::FrameAllocation_AllocAndAnnounceFrame : AVT::VmbAPI::FrameAllocation_AnnounceFrame);
-            */
-
-            std::thread t1(cameras[0]->StartContinuousImageAcquisition,3,AVT::VmbAPI::IFrameObserverPtr(m_pFrameObserver),
+            std::cout<<"We are gonna try to grab crap"<<std::endl;
+            err = cameras[0]->StartContinuousImageAcquisition(3,AVT::VmbAPI::IFrameObserverPtr(m_pFrameObserver),
             Config0.getAllocAndAnnounce() ? AVT::VmbAPI::FrameAllocation_AllocAndAnnounceFrame : AVT::VmbAPI::FrameAllocation_AnnounceFrame);
 
-            t1.join();
+            std::cout<<err<<std::endl;
+
+            if ( VmbErrorSuccess == err )
+            {
+                std::cout<< "Press <enter> to stop acquisition...\n" ;
+                getchar();
+
+                cameras[0]->StopContinuousImageAcquisition();
+                std::cout<<"Cam stopped"<<std::endl;
+            }
+        
+
+            // std::thread t1(cameras[0]->StartContinuousImageAcquisition,3,AVT::VmbAPI::IFrameObserverPtr(m_pFrameObserver),
+            // Config0.getAllocAndAnnounce() ? AVT::VmbAPI::FrameAllocation_AllocAndAnnounceFrame : AVT::VmbAPI::FrameAllocation_AnnounceFrame);
+            // t1.join();
 
             //ok, as of right now, this method and the apicontrol methond return the error of: invalid use of non-static member function
             //going to need to fix that for anything to work, it seems
         }
+        std::cout<<"Da shutdown"<<std::endl;
         apicontrol.ShutDown();
     }
 
