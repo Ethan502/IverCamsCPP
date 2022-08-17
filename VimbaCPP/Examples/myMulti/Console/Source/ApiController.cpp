@@ -39,6 +39,7 @@ namespace VmbAPI {
 namespace Examples {
 
 #define NUM_FRAMES 3
+#define NUM_CAMS 3
 
 ApiController::ApiController()
     // Get a reference to the Vimba singleton
@@ -320,10 +321,11 @@ VmbErrorType ApiController::StopMulticamCapture(AVT::VmbAPI::CameraPtrVector cam
 	return res;
 }
 
-VmbErrorType ApiController::OpenCameras(AVT::VmbAPI::CameraPtrVector cameras)
+bool ApiController::OpenCameras(AVT::VmbAPI::CameraPtrVector cameras)
 {
     std::string camID;
     VmbErrorType res;
+    std::vector<bool> openStates;
     std::vector<CameraPtr>::iterator itr;
     for(itr = cameras.begin(); itr != cameras.end(); itr++)
     {
@@ -334,8 +336,16 @@ VmbErrorType ApiController::OpenCameras(AVT::VmbAPI::CameraPtrVector cameras)
         if(res == VmbErrorSuccess)
         {
             std::cout<<"sweet it opened"<<std::endl;
+            openStates.push_back(true);
         }
+        else {openStates.push_back(false);}
     }
+    int counter = 0;
+    for(auto i : openStates){if (i == true){counter++;}}
+    if(counter >= NUM_CAMS){return true;}
+    else{return false;}
+
+    
 }
 
 

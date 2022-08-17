@@ -99,16 +99,44 @@ int main()
             std::cout<<"Not all cam ID's were set"<<std::endl;
         }
 
-
         if(err == VmbErrorSuccess)   //this section should start the image aquisition process
         {
+            bool state;
             std::cout<<"entered the thread portion"<<std::endl;
-            apicontrol.OpenCameras(cameras);
+            state = apicontrol.OpenCameras(cameras); //open all the cameras
+            if(state)
+            {
+                std::cout<<"got into this line"<<std::endl;
+                err = apicontrol.StartContinuousImageAcquisition( Config0 );
+                std::cout<<err<<std::endl;
+
+                if ( VmbErrorSuccess == err )
+                {
+                    std::cout<< "Press <enter> to stop acquisition...\n" ;
+                    getchar();
+
+                    apicontrol.StopContinuousImageAcquisition();
+                }
+                
+                
+            }
             
         }
         std::cout<<"Da shutdown"<<std::endl;
         apicontrol.ShutDown();
+
+        if ( VmbErrorSuccess == err )
+        {
+            std::cout<<"\nAcquisition stopped.\n" ;
+        }
+        else
+        {
+            std::string strError = apicontrol.ErrorCodeToMessage( err );
+            std::cout<<"\nAn error occurred: " << strError << "\n";
+        }
     }
+
+
 
     
 
