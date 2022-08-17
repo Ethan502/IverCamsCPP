@@ -319,4 +319,24 @@ VmbErrorType ApiController::StopMulticamCapture(AVT::VmbAPI::CameraPtrVector cam
 	}
 	return res;
 }
+
+VmbErrorType ApiController::OpenCameras(AVT::VmbAPI::CameraPtrVector cameras)
+{
+    std::string camID;
+    VmbErrorType res;
+    std::vector<CameraPtr>::iterator itr;
+    for(itr = cameras.begin(); itr != cameras.end(); itr++)
+    {
+        res = (*itr)->GetID(camID);
+        if(res !=  VmbErrorSuccess){continue;}
+        
+        res = m_system.OpenCameraByID(camID.c_str(),VmbAccessModeFull,m_pCamera);
+        if(res == VmbErrorSuccess)
+        {
+            std::cout<<"sweet it opened"<<std::endl;
+        }
+    }
+}
+
+
 }}} // namespace AVT::VmbAPI::Examples

@@ -117,6 +117,8 @@ class ApiController
     VmbErrorType StartMulticamCapture(AVT::VmbAPI::CameraPtrVector cameras);
     VmbErrorType StopMulticamCapture(AVT::VmbAPI::CameraPtrVector cameras);
 
+    VmbErrorType OpenCameras(AVT::VmbAPI::CameraPtrVector cameras);
+
   private:
     VmbErrorType        PrepareCamera();
     VimbaSystem &       m_system;                   // A reference to our Vimba singleton
