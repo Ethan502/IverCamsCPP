@@ -68,9 +68,15 @@ int main(int argc, char* argv[])
             else{err = VmbErrorNotFound;}
 
             if(err == VmbErrorSuccess)
-            {
-                
+            {   
+                //look into camera member functions such as AcquireSingleImage and AcquireMultipleImages,
+                //this could have the key to saving the needed images.
+                //also try going back and looking at the VIMBA CPP API manual, that may have other clues inside of it.
 
+                //this needs to find a way to wait for images to be sent in, but I don't know where the images are going to be sent
+                //can i manually save to memory addresses?
+                
+                
 
 
 
