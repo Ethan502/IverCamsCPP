@@ -22,6 +22,7 @@ int main(int argc, char* argv[])
     VmbErrorType err; //initialize the variable used for error checking
     AVT::VmbAPI::Examples::ProgramConfig Config;
     std::string camID;
+    AVT::VmbAPI::CameraPtr mainCam;
 
 
     camID = cmdParse(argc, argv); //parse the command line arguments, should be a single camera name
@@ -58,7 +59,11 @@ int main(int argc, char* argv[])
             {
                 err = cameras[i]->GetID(tempID);
                 if(err != VmbErrorSuccess){LOG("ERROR: Couldnt read a cam ID");LOG("Program Ending");control.ShutDown();return 0;}
-                if(camID == tempID){checker = true;}
+                if(camID == tempID)
+                {
+                    checker = true;
+                    mainCam = cameras[i];
+                }
             }
             if(checker)
             {
@@ -76,6 +81,13 @@ int main(int argc, char* argv[])
                 //this needs to find a way to wait for images to be sent in, but I don't know where the images are going to be sent
                 //can i manually save to memory addresses?
                 
+                VmbInt64_t nPLS;
+                AVT::VmbAPI::FeaturePtr pFeature;
+                mainCam->Open(VmbAccessModeFull);
+                mainCam->GetFeatureByName("PayloadSize", pFeature);
+                pFeature->GetValue(nPLS);
+                
+
                 
 
 
