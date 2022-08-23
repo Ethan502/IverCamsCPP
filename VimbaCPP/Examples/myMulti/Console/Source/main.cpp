@@ -40,6 +40,7 @@ int main(int argc, char* argv[])
         std::cout<<"Setting Camera: "<<camID<<"\n";
 
         AVT::VmbAPI::CameraPtrVector cameras; //initialize the camera list
+        VmbFrameStatusType status = VmbFrameStatusIncomplete;
         err = control.StartUp(); //start up vimba
 
         if(err ==  VmbErrorSuccess)
@@ -74,18 +75,21 @@ int main(int argc, char* argv[])
 
             if(err == VmbErrorSuccess)
             {   
-                //look into camera member functions such as AcquireSingleImage and AcquireMultipleImages,
-                //this could have the key to saving the needed images.
-                //also try going back and looking at the VIMBA CPP API manual, that may have other clues inside of it.
+                mainCam->Open();
 
-                //this needs to find a way to wait for images to be sent in, but I don't know where the images are going to be sent
-                //can i manually save to memory addresses?
+                AVT::VmbAPI::FramePtr pFrame;
+                err = control.AcquireSingleImage(camID, pFrame);
+                if(VmbErrorSuccess == err)
+                {
+                    err = pFrame->GetReceiveStatus(status);
+
+                }
+
                 
-                VmbInt64_t nPLS;
-                AVT::VmbAPI::FeaturePtr pFeature;
-                mainCam->Open(VmbAccessModeFull);
-                mainCam->GetFeatureByName("PayloadSize", pFeature);
-                pFeature->GetValue(nPLS);
+               
+
+                
+
                 
 
                 
@@ -101,10 +105,6 @@ int main(int argc, char* argv[])
         }
         control.ShutDown(); //end the vimba instance
     }
-
-    
-    
-    
         
     return 0;
 }
