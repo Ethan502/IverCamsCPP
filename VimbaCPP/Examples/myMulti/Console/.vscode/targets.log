@@ -1,4 +1,6 @@
 make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+make: *** No rule to make target 'all'.  Stop.
+
 # GNU Make 4.1
 # Built for x86_64-pc-linux-gnu
 # Copyright (C) 1988-2014 Free Software Foundation, Inc.
@@ -6,7 +8,7 @@ make all --print-data-base --no-builtin-variables --no-builtin-rules --question
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Thu Aug 18 11:57:30 2022
+# Make data base, printed on Tue Aug 23 11:53:20 2022
 
 # Variables
 
@@ -79,7 +81,7 @@ PATH = /home/esmit502/anaconda3/bin:/home/esmit502/anaconda3/condabin:/home/esmi
 # environment
 GPG_AGENT_INFO = /run/user/1002/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/CB437-EE11255:@/tmp/.ICE-unix/4528,unix/CB437-EE11255:/tmp/.ICE-unix/4528
+SESSION_MANAGER = local/CB437-EE11255:@/tmp/.ICE-unix/4396,unix/CB437-EE11255:/tmp/.ICE-unix/4396
 # environment
 XDG_RUNTIME_DIR = /run/user/1002
 # environment
@@ -123,7 +125,7 @@ PWD = /home/esmit502/vimbastuff/cppdev/IverCamsCPP/VimbaCPP/Examples/myMulti/Con
 # environment
 XDG_SEAT = seat0
 # environment
-SSH_AGENT_PID = 4624
+SSH_AGENT_PID = 4544
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -201,7 +203,7 @@ CONDA_SHLVL = 1
 # default
 MAKE_COMMAND := make
 # environment
-OLDPWD = /home/esmit502/vimbastuff/cppdev/IverCamsCPP/VimbaCPP/Examples
+OLDPWD = /home/esmit502/vimbastuff/cppdev/IverCamsCPP/VimbaCPP/Examples/myMulti
 # default
 .VARIABLES := 
 # automatic
@@ -225,7 +227,7 @@ NO_AT_BRIDGE = 1
 # environment
 QT_ACCESSIBILITY = 1
 # environment
-DESKTOP_AUTOSTART_ID = 10b82eb9867cd3621f166084529255701000000045280007
+DESKTOP_AUTOSTART_ID = 109fcacbf9a43b44c5166127707458042200000043960007
 # environment
 DEFAULTS_PATH = /usr/share/gconf/ubuntu.default.path
 # environment
@@ -245,11 +247,11 @@ CONDA_PYTHON_EXE = /home/esmit502/anaconda3/bin/python
 # environment
 QT4_IM_MODULE = xim
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/085781d2_e85b_4268_944b_de515b1c3bfd
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/57670d77_fe09_432a_b312_6f13b54bdead
 # automatic
 ^F = $(notdir $^)
 # environment
-GNOME_TERMINAL_SERVICE = :1.76
+GNOME_TERMINAL_SERVICE = :1.84
 # default
 SUFFIXES := 
 # environment
@@ -269,20 +271,18 @@ LANG = C
 # environment
 TERM = xterm-256color
 # environment
-VSCODE_PID = 6478
+VSCODE_PID = 6104
 # environment
 _CE_CONDA = 
 # variable set hash-table stats:
 # Load=131/1024=13%, Rehash=0, Collisions=18/153=12%
 
+ 
 # Pattern-specific Variable Values
 
 # No pattern-specific variable values.
 
 # Directories
-
- 
-make: *** No rule to make target 'all'.  Stop.
 
 # . (device 2050, inode 16127548): 5 files, no impossibilities.
 
@@ -342,6 +342,6 @@ GNUmakefile:
 # strcache performance: lookups = 16 / hit rate = 18%
 # hash-table stats:
 # Load=13/8192=0%, Rehash=0, Collisions=1/16=6%
-# Finished Make data base on Thu Aug 18 11:57:30 2022
+# Finished Make data base on Tue Aug 23 11:53:20 2022
 
  
