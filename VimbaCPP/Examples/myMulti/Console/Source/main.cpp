@@ -83,8 +83,9 @@ int main(int argc, char* argv[])
             if(err == VmbErrorSuccess) //the loop will need to start in this scope
             {   
                 AVT::VmbAPI::FramePtr pFrame;
-                for(int i = 0; i < 10; i++)
+                while(true)
                 {
+                    std::cin.get();
                     err = control.AcquireSingleImage(camID, pFrame);
                     if(VmbErrorSuccess == err)
                     {
