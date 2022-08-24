@@ -36,7 +36,8 @@ CFLAGS              = $(COMMON_CFLAGS) \
 OBJ_FILES           = $(OBJ_DIR)/ApiController.o \
                       $(OBJ_DIR)/FrameObserver.o \
                       $(OBJ_DIR)/main.o \
-					  $(OBJ_DIR)/Bitmap.o
+					  $(OBJ_DIR)/Bitmap.o \
+					  $(OBJ_DIR)/Saver.o
 
 DEPENDENCIES        = VimbaCPP \
                       VimbaImageTransform

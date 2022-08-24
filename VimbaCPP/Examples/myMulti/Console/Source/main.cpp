@@ -10,6 +10,7 @@
 #include "Common/ErrorCodeToMessage.h"
 #include "ApiController.h"
 #include "Bitmap.h"
+#include "Saver.h"
 
 #define CAMERA_COUNT 3
 #define LOG(x) std::cout<<x<<std::endl;
@@ -89,93 +90,14 @@ int main(int argc, char* argv[])
                     err = control.AcquireSingleImage(camID, pFrame);
                     if(VmbErrorSuccess == err)
                     {
-                        err = pFrame->GetReceiveStatus(status);
-                        if(VmbErrorSuccess ==  err && 
-                            VmbFrameStatusComplete == status)
-                        {
-                            VmbPixelFormatType ePixelFormat = VmbPixelFormatMono8;
-                            err = pFrame->GetPixelFormat(ePixelFormat);
-                            if (VmbErrorSuccess == err)
-                            {
-                                if ((VmbPixelFormatMono8 != ePixelFormat) && 
-                                    (VmbPixelFormatRgb8 != ePixelFormat))
-                                {
-                                    err = VmbErrorInvalidValue;
-                                }
-                                else
-                                {
-                                    VmbUint32_t nImageSize = 0;
-                                    err = pFrame->GetImageSize(nImageSize);
-                                    if(VmbErrorSuccess == err)
-                                    {
-                                        VmbUint32_t nWidth = 0;
-                                        err = pFrame->GetWidth(nWidth);
-                                        if(VmbErrorSuccess == err)
-                                        {
-                                            VmbUint32_t nHeight = 0;
-                                            err = pFrame->GetHeight(nHeight);
-                                            if(VmbErrorSuccess == err)
-                                            {
-                                                VmbUchar_t *pImage = NULL;
-                                                err = pFrame->GetImage(pImage);
-                                                if(VmbErrorSuccess == err)
-                                                {
-                                                    AVTBitmap bitmap;
-
-                                                    if(VmbPixelFormatRgb8 == ePixelFormat)
-                                                    {
-                                                        bitmap.colorCode = ColorCodeRGB24;
-                                                    }
-                                                    else
-                                                    {
-                                                        bitmap.colorCode = ColorCodeMono8;
-                                                    }
-
-                                                    bitmap.bufferSize = nImageSize;
-                                                    bitmap.width = nWidth;
-                                                    bitmap.height = nHeight;
-
-                                                    //create the bitmap
-                                                    if (0 == AVTCreateBitmap(&bitmap, pImage))
-                                                    {
-                                                        LOG("ERROR: Could not create bitmap");
-                                                        err = VmbErrorResources;
-                                                    }
-                                                    else
-                                                    {
-                                                        //Save the bitmap
-                                                        pFileName = "../../../../Image.bmp";
-                                                        if(0 == AVTWriteBitmapToFile(&bitmap, pFileName))
-                                                        {
-                                                            LOG("ERROR: Could not write bitmap to file");
-                                                            err = VmbErrorOther;
-                                                        }
-                                                        else
-                                                        {
-                                                            LOG("Bitmap successfully written to file");
-                                                            //LOG("Ran"+std::to_string(i));
-                                                            //release the bitmap buffer
-                                                            if(0 == AVTReleaseBitmap(&bitmap))
-                                                            {
-                                                                LOG("ERROR: Could not release the bitmap");
-                                                                err = VmbErrorInternalFault;
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            } 
-                        }
-
+                        WriteToBitmap(pFrame, err, status, pFileName);
                     }
                 }
             }
-            else{LOG("ERROR: Input ID did not match a detected camera");LOG("Program Ending");control.ShutDown();return 0;}
-
         }
+        else{LOG("ERROR: Input ID did not match a detected camera");LOG("Program Ending");control.ShutDown();return 0;}
+
+    
         control.ShutDown(); //end the vimba instance
 
         if ( VmbErrorSuccess != err )
@@ -187,8 +109,7 @@ int main(int argc, char* argv[])
         {
             std::cout<<"received frame was not complete\n";
         }
-    }
-        
+    } 
     return 0;
 }
 
