@@ -35,6 +35,7 @@
 #endif //WIN32
 
 #include "FrameObserver.h"
+#include "Saver.h"
 
 #include "TransformImage.h"
 
@@ -353,6 +354,9 @@ void FrameObserver::FrameReceived( const FramePtr pFrame )
                 {
                     std::cout<<"Transformation failed.\n";
                 }
+
+                //maybe put the saver function here
+
             }
         }
         else

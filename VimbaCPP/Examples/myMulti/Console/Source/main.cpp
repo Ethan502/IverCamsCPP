@@ -83,16 +83,7 @@ int main(int argc, char* argv[])
 
             if(err == VmbErrorSuccess) //the loop will need to start in this scope
             {   
-                AVT::VmbAPI::FramePtr pFrame;
-                while(true)
-                {
-                    std::cin.get();
-                    err = control.AcquireSingleImage(camID, pFrame);
-                    if(VmbErrorSuccess == err)
-                    {
-                        WriteToBitmap(pFrame, err, status, pFileName);
-                    }
-                }
+                
             }
         }
         else{LOG("ERROR: Input ID did not match a detected camera");LOG("Program Ending");control.ShutDown();return 0;}
