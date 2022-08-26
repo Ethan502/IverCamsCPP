@@ -93,4 +93,97 @@ void WriteToBitmap(AVT::VmbAPI::FramePtr &pFrame, VmbErrorType &err, VmbFrameSta
     }
 }
 
+void WriteToBitmap(AVT::VmbAPI::FramePtr pFrame)
+{
+    
+    VmbFrameStatusType status = VmbFrameStatusIncomplete;
+    VmbErrorType err = pFrame->GetReceiveStatus(status);
+    if(VmbErrorSuccess ==  err && VmbFrameStatusComplete == status)
+    {
+        LOG("Im actually in the function");
+        VmbPixelFormatType ePixelFormat = VmbPixelFormatMono8;
+        err = pFrame->GetPixelFormat(ePixelFormat);
+        if (VmbErrorSuccess == err)
+        {
+            LOG("A");
+            if ((VmbPixelFormatMono8 != ePixelFormat) && 
+                (VmbPixelFormatRgb8 != ePixelFormat))
+            {
+                LOG("F"); //the issue is happening here. Lets make it work
+                err = VmbErrorInvalidValue;
+            }
+            else
+            {
+                LOG("B");
+                VmbUint32_t nImageSize = 0;
+                err = pFrame->GetImageSize(nImageSize);
+                if(VmbErrorSuccess == err)
+                {
+                    LOG("C");
+                    VmbUint32_t nWidth = 0;
+                    err = pFrame->GetWidth(nWidth);
+                    if(VmbErrorSuccess == err)
+                    {
+                        LOG("D");
+                        VmbUint32_t nHeight = 0;
+                        err = pFrame->GetHeight(nHeight);
+                        if(VmbErrorSuccess == err)
+                        {
+                            LOG("E");
+                            VmbUchar_t *pImage = NULL;
+                            err = pFrame->GetImage(pImage);
+                            
+                            if(VmbErrorSuccess == err)
+                            {
+                            AVTBitmap bitmap;
+
+                                if(VmbPixelFormatRgb8 == ePixelFormat)
+                                {
+                                    bitmap.colorCode = ColorCodeRGB24;
+                                }
+                                else
+                                {
+                                    bitmap.colorCode = ColorCodeMono8;
+                                }
+                                bitmap.bufferSize = nImageSize;
+                                bitmap.width = nWidth;
+                                bitmap.height = nHeight;
+
+                                //create the bitmap
+                                if (0 == AVTCreateBitmap(&bitmap, pImage))
+                                {
+                                    LOG("ERROR: Could not create bitmap");
+                                    err = VmbErrorResources;
+                                }
+                                else
+                                {
+                                    //Save the bitmap
+                                    const char* pFileName = "../../../../Image.bmp";
+                                    if(0 == AVTWriteBitmapToFile(&bitmap, pFileName))
+                                    {
+                                        LOG("ERROR: Could not write bitmap to file");
+                                        err = VmbErrorOther;
+                                    }
+                                    else
+                                    {
+                                        std::cout<<"logged"<<std::endl;
+                                        LOG("Bitmap successfully written to file");
+                                        //LOG("Ran"+std::to_string(i));
+                                        //release the bitmap buffer
+                                        if(0 == AVTReleaseBitmap(&bitmap))
+                                        {
+                                            LOG("ERROR: Could not release the bitmap");
+                                            err = VmbErrorInternalFault;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        } 
+    }
+}
+
 

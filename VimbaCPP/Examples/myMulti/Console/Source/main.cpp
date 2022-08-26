@@ -78,12 +78,22 @@ int main(int argc, char* argv[])
             {
                 LOG("Camera ID Matched") //confirm in log that the input camID matches a linked camera
                 err = VmbErrorSuccess;
+                Config.setCameraID(camID);
             }
             else{err = VmbErrorNotFound;}
 
             if(err == VmbErrorSuccess) //the loop will need to start in this scope
             {   
-                
+                std::cout<<"Opening camera with ID: "<<camID<<std::endl;
+                err = control.StartContinuousImageAcquisition(Config);
+
+                if(VmbErrorSuccess == err)
+                {
+                    std::cout<< "Press <enter> to stop acquisition\n";
+                    getchar();
+
+                    control.StopContinuousImageAcquisition();
+                }
             }
         }
         else{LOG("ERROR: Input ID did not match a detected camera");LOG("Program Ending");control.ShutDown();return 0;}
@@ -91,15 +101,16 @@ int main(int argc, char* argv[])
     
         control.ShutDown(); //end the vimba instance
 
-        if ( VmbErrorSuccess != err )
+        if ( VmbErrorSuccess == err )
+        {
+            std::cout<<"\nAcquisition stopped.\n" ;
+        }
+        else
         {
             std::string strError = control.ErrorCodeToMessage( err );
-            std::cout << "\nAn error occurred: " << strError.c_str() << "\n";
+            std::cout<<"\nAn error occurred: " << strError << "\n";
         }
-        if( VmbFrameStatusIncomplete == status)
-        {
-            std::cout<<"received frame was not complete\n";
-        }
+
     } 
     return 0;
 }

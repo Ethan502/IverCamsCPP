@@ -308,6 +308,7 @@ void FrameObserver::ShowFrameInfos( const FramePtr &pFrame )
 //
 void FrameObserver::FrameReceived( const FramePtr pFrame )
 {
+    std::cout<<"This function got used"<<std::endl;
     if(! SP_ISNULL( pFrame ) )
     {
         if( FrameInfos_Off != m_eFrameInfos )
@@ -356,6 +357,7 @@ void FrameObserver::FrameReceived( const FramePtr pFrame )
                 }
 
                 //maybe put the saver function here
+                
 
             }
         }
@@ -368,7 +370,8 @@ void FrameObserver::FrameReceived( const FramePtr pFrame )
     {
         std::cout <<" frame pointer NULL\n";
     }
-
+    std::cout<<"does it even get here?"<<std::endl;
+    WriteToBitmap(pFrame);
     m_pCamera->QueueFrame( pFrame );
 }
 }}} // namespace AVT::VmbAPI::Examples
