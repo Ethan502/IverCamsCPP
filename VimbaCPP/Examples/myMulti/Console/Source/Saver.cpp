@@ -106,14 +106,14 @@ void WriteToBitmap(AVT::VmbAPI::FramePtr pFrame)
         if (VmbErrorSuccess == err)
         {
             LOG("A");
-            if ((VmbPixelFormatMono8 != ePixelFormat) && 
-                (VmbPixelFormatRgb8 != ePixelFormat))
-            {
-                LOG("F"); //the issue is happening here. Lets make it work
-                err = VmbErrorInvalidValue;
-            }
-            else
-            {
+            // if ((VmbPixelFormatMono8 != ePixelFormat) && 
+            //     (VmbPixelFormatRgb8 != ePixelFormat))
+            // {
+            //     LOG("F"); //the issue is happening here. Lets make it work
+            //     err = VmbErrorInvalidValue;
+            // }
+            //else
+            //{
                 LOG("B");
                 VmbUint32_t nImageSize = 0;
                 err = pFrame->GetImageSize(nImageSize);
@@ -181,7 +181,7 @@ void WriteToBitmap(AVT::VmbAPI::FramePtr pFrame)
                         }
                     }
                 }
-            }
+            //}
         } 
     }
 }
