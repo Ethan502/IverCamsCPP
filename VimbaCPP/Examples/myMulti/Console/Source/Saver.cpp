@@ -102,7 +102,9 @@ void WriteToBitmap(AVT::VmbAPI::FramePtr pFrame)
     {
         LOG("Im actually in the function");
         VmbPixelFormatType ePixelFormat = VmbPixelFormatMono8;
+        LOG(ePixelFormat);
         err = pFrame->GetPixelFormat(ePixelFormat);
+        LOG(ePixelFormat);
         if (VmbErrorSuccess == err)
         {
             LOG("A");
