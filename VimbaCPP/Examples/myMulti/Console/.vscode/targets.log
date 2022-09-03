@@ -8,7 +8,7 @@ make: *** No rule to make target 'all'.  Stop.
 # This is free software: you are free to change and redistribute it.
 # There is NO WARRANTY, to the extent permitted by law.
 
-# Make data base, printed on Tue Aug 23 11:53:20 2022
+# Make data base, printed on Wed Aug 24 17:41:36 2022
 
 # Variables
 
@@ -81,7 +81,7 @@ PATH = /home/esmit502/anaconda3/bin:/home/esmit502/anaconda3/condabin:/home/esmi
 # environment
 GPG_AGENT_INFO = /run/user/1002/gnupg/S.gpg-agent:0:1
 # environment
-SESSION_MANAGER = local/CB437-EE11255:@/tmp/.ICE-unix/4396,unix/CB437-EE11255:/tmp/.ICE-unix/4396
+SESSION_MANAGER = local/CB437-EE11255:@/tmp/.ICE-unix/4389,unix/CB437-EE11255:/tmp/.ICE-unix/4389
 # environment
 XDG_RUNTIME_DIR = /run/user/1002
 # environment
@@ -125,7 +125,7 @@ PWD = /home/esmit502/vimbastuff/cppdev/IverCamsCPP/VimbaCPP/Examples/myMulti/Con
 # environment
 XDG_SEAT = seat0
 # environment
-SSH_AGENT_PID = 4544
+SSH_AGENT_PID = 4485
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
 # environment
@@ -211,6 +211,7 @@ OLDPWD = /home/esmit502/vimbastuff/cppdev/IverCamsCPP/VimbaCPP/Examples/myMulti
 # environment
 VSCODE_IPC_HOOK = /run/user/1002/vscode-860edd1d-1.70.2-main.sock
 # makefile
+ 
 MAKEFLAGS = pqrR
 # environment
 MFLAGS = -pqrR
@@ -224,10 +225,11 @@ GDK_BACKEND = x11
 +F = $(notdir $+)
 # environment
 NO_AT_BRIDGE = 1
+ 
 # environment
 QT_ACCESSIBILITY = 1
 # environment
-DESKTOP_AUTOSTART_ID = 109fcacbf9a43b44c5166127707458042200000043960007
+DESKTOP_AUTOSTART_ID = 108c9f88d053bb7b7a166138383450736100000043890007
 # environment
 DEFAULTS_PATH = /usr/share/gconf/ubuntu.default.path
 # environment
@@ -247,15 +249,16 @@ CONDA_PYTHON_EXE = /home/esmit502/anaconda3/bin/python
 # environment
 QT4_IM_MODULE = xim
 # environment
-GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/57670d77_fe09_432a_b312_6f13b54bdead
+GNOME_TERMINAL_SCREEN = /org/gnome/Terminal/screen/feb42e4b_47c6_4659_a99e_1ef977ff2a13
 # automatic
 ^F = $(notdir $^)
 # environment
-GNOME_TERMINAL_SERVICE = :1.84
+GNOME_TERMINAL_SERVICE = :1.82
 # default
 SUFFIXES := 
 # environment
 SNAP_REEXEC = 
+ 
 # environment
 _CE_M = 
 # environment
@@ -271,25 +274,26 @@ LANG = C
 # environment
 TERM = xterm-256color
 # environment
-VSCODE_PID = 6104
+VSCODE_PID = 7048
 # environment
 _CE_CONDA = 
 # variable set hash-table stats:
+ 
 # Load=131/1024=13%, Rehash=0, Collisions=18/153=12%
 
- 
 # Pattern-specific Variable Values
 
 # No pattern-specific variable values.
 
 # Directories
 
-# . (device 2050, inode 16127548): 5 files, no impossibilities.
+# . (device 2050, inode 16127548): 6 files, no impossibilities.
 
-# 5 files, no impossibilities in 1 directories.
+# 6 files, no impossibilities in 1 directories.
 
 # Implicit Rules
 
+ 
 # No implicit rules.
 
 # Files
@@ -316,6 +320,7 @@ makefile:
 #  Failed to be updated.
 
 # Not a target:
+ 
 .DEFAULT:
 #  Implicit rule search has not been done.
 #  Modification time never checked.
@@ -329,6 +334,7 @@ GNUmakefile:
 #  Failed to be updated.
 
 # files hash-table stats:
+ 
 # Load=6/1024=1%, Rehash=0, Collisions=0/15=0%
 # VPATH Search Paths
 
@@ -336,12 +342,13 @@ GNUmakefile:
 
 # No general ('VPATH' variable) search path.
 
-# strcache buffers: 1 (0) / strings = 13 / storage = 111 B / avg = 8 B
-# current buf: size = 8162 B / used = 111 B / count = 13 / avg = 8 B
+# strcache buffers: 1 (0) / strings = 14 / storage = 121 B / avg = 8 B
+# current buf: size = 8162 B / used = 121 B / count = 14 / avg = 8 B
 
-# strcache performance: lookups = 16 / hit rate = 18%
+# strcache performance: lookups = 17 / hit rate = 17%
 # hash-table stats:
-# Load=13/8192=0%, Rehash=0, Collisions=1/16=6%
-# Finished Make data base on Tue Aug 23 11:53:20 2022
+ 
+# Load=14/8192=0%, Rehash=0, Collisions=1/17=6%
+# Finished Make data base on Wed Aug 24 17:41:36 2022
 
  
