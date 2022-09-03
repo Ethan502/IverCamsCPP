@@ -91,7 +91,7 @@ int main(int argc, char* argv[])
     
         control.ShutDown(); //end the vimba instance
 
-        if ( VmbErrorSuccess != err )
+        if ( VmbErrorSuccess != err ) //do the error message stuff
         {
             std::string strError = control.ErrorCodeToMessage( err );
             std::cout << "\nAn error occurred: " << strError.c_str() << "\n";
