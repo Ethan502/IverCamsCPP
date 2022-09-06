@@ -355,10 +355,6 @@ void FrameObserver::FrameReceived( const FramePtr pFrame )
                 {
                     std::cout<<"Transformation failed.\n";
                 }
-
-                //maybe put the saver function here
-                
-
             }
         }
         else

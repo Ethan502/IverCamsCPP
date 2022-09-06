@@ -107,6 +107,7 @@ VmbErrorType ApiController::StartContinuousImageAcquisition( const ProgramConfig
         // Set the GeV packet size to the highest possible value
         // (In this example we do not test whether this cam actually is a GigE cam)
         FeaturePtr pCommandFeature;
+        FeaturePtr pFormatFeature;
         if ( VmbErrorSuccess == m_pCamera->GetFeatureByName( "GVSPAdjustPacketSize", pCommandFeature ))
         {
             if ( VmbErrorSuccess == pCommandFeature->RunCommand() )
@@ -121,6 +122,14 @@ VmbErrorType ApiController::StartContinuousImageAcquisition( const ProgramConfig
                 } while ( false == bIsCommandDone );
             }
         }
+
+        //fix the grey images issue, potentially
+        if(VmbErrorSuccess == m_pCamera->GetFeatureByName("PixelFormat", pFormatFeature));
+        {
+            res = pFormatFeature->SetValue(VmbPixelFormatRgb8);
+            if(VmbErrorSuccess != res){std::cout<<"rgb didnt work"<<std::endl;}
+        }
+
 
         if ( VmbErrorSuccess == res )
         {
