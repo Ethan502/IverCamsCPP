@@ -1,4 +1,4 @@
-PROJECT_NAME            = MultiThread
+PROJECT_NAME            = myMulti
 
 PROJECT_DIR             = ../..
 EXAMPLES_DIR            = $(PROJECT_DIR)/../..
