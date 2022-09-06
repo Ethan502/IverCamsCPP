@@ -193,7 +193,9 @@ int main( int argc, char* argv[] )
                          && VmbFrameStatusComplete == status )
                     {
                         VmbPixelFormatType ePixelFormat = VmbPixelFormatMono8;
+                        std::cout<<VmbPixelFormatMono8<<std::endl;
                         err = pFrame->GetPixelFormat( ePixelFormat );
+                        std::cout<<ePixelFormat<<std::endl;
                         if ( VmbErrorSuccess == err )
                         {
                             if (    ( VmbPixelFormatMono8 != ePixelFormat )

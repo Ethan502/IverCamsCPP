@@ -84,7 +84,6 @@ int main(int argc, char* argv[])
 
             if(err == VmbErrorSuccess) //the loop will need to start in this scope
             {   
-                FeaturePtr pFormatFeature;
                 
                 std::cout<<"Opening camera with ID: "<<camID<<std::endl;
                 err = control.StartContinuousImageAcquisition(Config);
