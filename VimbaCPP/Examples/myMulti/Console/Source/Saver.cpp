@@ -108,6 +108,7 @@ void WriteToBitmap(AVT::VmbAPI::FramePtr pFrame)
             err = pFrame->GetImageSize(nImageSize);
             if(VmbErrorSuccess == err)
             {
+                
                 VmbUint32_t nWidth = 0;
                 err = pFrame->GetWidth(nWidth);
                 if(VmbErrorSuccess == err)

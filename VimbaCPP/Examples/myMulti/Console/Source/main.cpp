@@ -36,10 +36,10 @@ int main(int argc, char* argv[])
     }
     else
     {
-        if ( NULL == pFileName )
-        {
-            pFileName = "SynchronousGrab.bmp";
-        }
+        // if ( NULL == pFileName )
+        // {
+        //     pFileName = "SynchronousGrab.bmp";
+        // }
 
         AVT::VmbAPI::Examples::ApiController control;
         std::cout<<"Vimba C++ API Version: "<<control.GetVersion()<<std::endl; //print the current version
