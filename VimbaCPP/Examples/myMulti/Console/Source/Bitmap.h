@@ -82,6 +82,6 @@ unsigned char AVTReleaseBitmap( AVTBitmap * const pBitmap );
 //  0 in case of error
 //  1 in case of success
 //
-unsigned char AVTWriteBitmapToFile( AVTBitmap const * const pBitmap, char const * const pFileName );
+unsigned char AVTWriteBitmapToFile( AVTBitmap const * const pBitmap, char const * pFileName );
 
 #endif

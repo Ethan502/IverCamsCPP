@@ -25,7 +25,7 @@ int main(int argc, char* argv[])
     AVT::VmbAPI::Examples::ProgramConfig Config;
     std::string camID;
     AVT::VmbAPI::CameraPtr mainCam;
-    const char * pFileName = NULL;
+    //const char * pFileName = NULL;
 
 
     camID = cmdParse(argc, argv); //parse the command line arguments, should be a single camera name

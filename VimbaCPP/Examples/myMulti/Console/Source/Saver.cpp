@@ -145,7 +145,7 @@ void WriteToBitmap(AVT::VmbAPI::FramePtr pFrame)
                             else
                             {
                                 //Save the bitmap
-                                const char* pFileName = "../../../../Image.bmp";
+                                char* pFileName = const_cast<char*>("daPic.bmp");  //here is the problem
                                 if(0 == AVTWriteBitmapToFile(&bitmap, pFileName))
                                 {
                                     LOG("ERROR: Could not write bitmap to file");
