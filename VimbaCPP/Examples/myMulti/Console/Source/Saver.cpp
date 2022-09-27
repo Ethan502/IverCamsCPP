@@ -13,6 +13,7 @@
 
 void WriteToBitmap(AVT::VmbAPI::FramePtr &pFrame, VmbErrorType &err, VmbFrameStatusType &status, const char* pFileName)
 {
+    int count = 1;
     err = pFrame->GetReceiveStatus(status);
     if(VmbErrorSuccess ==  err && VmbFrameStatusComplete == status)
     {
@@ -93,7 +94,7 @@ void WriteToBitmap(AVT::VmbAPI::FramePtr &pFrame, VmbErrorType &err, VmbFrameSta
     }
 }
 
-void WriteToBitmap(AVT::VmbAPI::FramePtr pFrame)
+void WriteToBitmap(AVT::VmbAPI::FramePtr pFrame,std::string picName)
 {
     
     VmbFrameStatusType status = VmbFrameStatusIncomplete;
@@ -145,7 +146,7 @@ void WriteToBitmap(AVT::VmbAPI::FramePtr pFrame)
                             else
                             {
                                 //Save the bitmap
-                                char* pFileName = const_cast<char*>("daPic.bmp");  //here is the problem
+                                const char* pFileName = picName.c_str();  //here is the problem
                                 if(0 == AVTWriteBitmapToFile(&bitmap, pFileName))
                                 {
                                     LOG("ERROR: Could not write bitmap to file");

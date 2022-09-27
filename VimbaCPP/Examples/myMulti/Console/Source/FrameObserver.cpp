@@ -51,11 +51,14 @@ namespace Examples {
 //  [in]    eFrameInfos         Indicates how the frame will be displayed
 //  [in]    eColorProcessing    Indicates how color processing is applied
 //
-FrameObserver::FrameObserver( CameraPtr pCamera, FrameInfos eFrameInfos, ColorProcessing eColorProcessing, bool bRGBValue )
+FrameObserver::FrameObserver( CameraPtr pCamera, FrameInfos eFrameInfos, ColorProcessing eColorProcessing, bool bRGBValue, std::string camIdentity )
     :   IFrameObserver( pCamera )
     ,   m_eFrameInfos( eFrameInfos )
     ,   m_bRGB( bRGBValue )
     ,   m_eColorProcessing( eColorProcessing )
+    ,   picName( "pic0.bmp") //trying to start the photo name here
+    ,   frameCount( 0 )     //initialize the counter
+    ,   camID( camIdentity )
 #ifdef WIN32
     ,   m_dFrequency( 0.0 )
 #endif //WIN32
@@ -365,7 +368,9 @@ void FrameObserver::FrameReceived( const FramePtr pFrame )
     {
         std::cout <<" frame pointer NULL\n";
     }
-    WriteToBitmap(pFrame);
+    WriteToBitmap(pFrame,picName);
     m_pCamera->QueueFrame(pFrame);
+    frameCount++;
+    picName = "../../../../../images"+ camID +"/pic" + std::to_string(frameCount) + ".bmp";
 }
 }}} // namespace AVT::VmbAPI::Examples

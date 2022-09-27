@@ -121,12 +121,15 @@ class ApiController
 
     VmbErrorType AcquireSingleImage(const std::string &rStrCameraID, FramePtr &rpFrame);
 
+    void setCameraID(std::string iD){camID = iD};
+
 
   private:
     VmbErrorType        PrepareCamera();
     VimbaSystem&        m_system;                   // A reference to our Vimba singleton
     CameraPtr           m_pCamera;                  // The currently streaming camera
     FrameObserver*      m_pFrameObserver;           // Every camera has its own frame observer
+    std::string         camID;
 
   CameraPtrVector m_OpenCameras;
 	std::vector<FrameObserver *> m_camObservers;
