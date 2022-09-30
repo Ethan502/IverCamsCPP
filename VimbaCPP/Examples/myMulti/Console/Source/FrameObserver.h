@@ -32,6 +32,7 @@
 #include <queue>
 #include "VimbaCPP/Include/VimbaCPP.h"
 #include "ProgramConfig.h"
+#include <chrono>
 #ifdef WIN32
 #include <Windows.h>
 #endif //WIN32
@@ -52,7 +53,7 @@ public:
     //  [in]    eFrameInfos         Indicates how the frame will be displayed
     //  [in]    eColorProcessing    Indicates how color processing is applied
     //
-    FrameObserver( CameraPtr pCamera, FrameInfos eFrameInfos, ColorProcessing eColorProcessing, bool bRGBValue, std::string camIdentity );
+    FrameObserver( CameraPtr pCamera, FrameInfos eFrameInfos, ColorProcessing eColorProcessing, bool bRGBValue, std::string camIdentity);
     
     //
     // This is our callback routine that will be executed on every received frame.

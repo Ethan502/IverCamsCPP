@@ -254,7 +254,6 @@ std::string ApiController::GetVersion() const
     return os.str();
 }
 
-
 VmbErrorType ApiController::PrepareCamera(CameraPtr pCamera)
 {
     VmbErrorType result;
@@ -263,71 +262,6 @@ VmbErrorType ApiController::PrepareCamera(CameraPtr pCamera)
     result = SetIntFeatureValueModulo2(pCamera, "Height");
     if(VmbErrorSuccess != result){return result;}
     return result;
-}
-
-VmbErrorType ApiController::StartMulticamCapture(AVT::VmbAPI::CameraPtrVector cameras)
-{
-    VmbErrorType res;
-    std::vector<CameraPtr>::iterator itr;
-    for(itr = cameras.begin(); itr != cameras.end(); itr++)
-    {
-        std::string strCameraID;
-        res = (*itr)->GetID(strCameraID);
-        if(VmbErrorSuccess != res) {continue;}
-
-        res = m_system.OpenCameraByID(strCameraID.c_str(), VmbAccessModeFull, m_pCamera);
-        if(VmbErrorSuccess == res)
-        {
-            std::cout<<strCameraID.c_str()<<std::endl;
-
-            FeaturePtr pCommandFeature;
-            if(VmbErrorSuccess == m_pCamera->GetFeatureByName("GVSPAdjustPacketSize", pCommandFeature))
-            {
-                if (VmbErrorSuccess == pCommandFeature->RunCommand())
-                {
-                    bool bIsCommandDone = false;
-                    do
-                    {
-                        if(VmbErrorSuccess != pCommandFeature->IsCommandDone(bIsCommandDone))
-                        {
-                            break;
-                        }
-                    } while (false == bIsCommandDone);
-                }
-            }
-
-            if(VmbErrorSuccess == res)
-            {
-                PrepareCamera(m_pCamera);
-
-                m_pFrameObserver = new FrameObserver(m_pCamera, FrameInfos_Off, ColorProcessing_Off,true);
-
-                //start streaming
-                res = m_pCamera->StartContinuousImageAcquisition(NUM_FRAMES, IFrameObserverPtr(m_pFrameObserver));
-
-                m_camObservers.push_back(m_pFrameObserver);
-                m_OpenCameras.push_back(m_pCamera);
-            }
-        }
-    }
-    return res;
-}
-
-VmbErrorType ApiController::StopMulticamCapture(AVT::VmbAPI::CameraPtrVector cameras)
-{
-	// Wait until all the cameras have been closed.
-	VmbErrorType res;
-
-	std::vector<CameraPtr>::iterator itr;
-	for(itr = cameras.begin(); itr != cameras.end(); itr++)
-	{
-		// Stop streaming
-		(*itr)->StopContinuousImageAcquisition();
-
-		// Close camera
-		res = (*itr)->Close();
-	}
-	return res;
 }
 
 bool ApiController::OpenCameras(AVT::VmbAPI::CameraPtrVector cameras)

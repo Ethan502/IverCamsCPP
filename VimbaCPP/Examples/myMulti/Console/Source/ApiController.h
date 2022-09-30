@@ -114,14 +114,12 @@ class ApiController
     std::string         GetVersion() const;
 
     VmbErrorType PrepareCamera(CameraPtr pcamera);
-    VmbErrorType StartMulticamCapture(AVT::VmbAPI::CameraPtrVector cameras);
-    VmbErrorType StopMulticamCapture(AVT::VmbAPI::CameraPtrVector cameras);
 
     bool OpenCameras(AVT::VmbAPI::CameraPtrVector cameras);
 
     VmbErrorType AcquireSingleImage(const std::string &rStrCameraID, FramePtr &rpFrame);
 
-    void setCameraID(std::string iD){camID = iD};
+    void setCameraID(std::string iD){camID = iD;}
 
 
   private:

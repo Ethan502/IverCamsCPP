@@ -361,16 +361,22 @@ void FrameObserver::FrameReceived( const FramePtr pFrame )
         }
         else
         {
-            std::cout<<"frame incomplete\n";
+            std::cout<<"frame incomplete------------------------------------------------------------------------------------------------------\n";
         }
     }
     else
     {
         std::cout <<" frame pointer NULL\n";
     }
+    auto start = std::chrono::high_resolution_clock::now();
     WriteToBitmap(pFrame,picName);
+    auto stop = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
+    std::cout << "The bitmap took " << duration.count() << " milliseconds." << std::endl;
+
     m_pCamera->QueueFrame(pFrame);
     frameCount++;
-    picName = "../../../../../images"+ camID +"/pic" + std::to_string(frameCount) + ".bmp";
+    //picName = "../../../../../images"+ camID +"/pic" + std::to_string(frameCount) + ".bmp";
+    picName = "images/pic" + std::to_string(frameCount) + ".bmp";
 }
 }}} // namespace AVT::VmbAPI::Examples
