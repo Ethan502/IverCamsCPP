@@ -376,7 +376,7 @@ void FrameObserver::FrameReceived( const FramePtr pFrame )
 
     m_pCamera->QueueFrame(pFrame);
     frameCount++;
-    //picName = "../../../../../images"+ camID +"/pic" + std::to_string(frameCount) + ".bmp";
-    picName = "images/pic" + std::to_string(frameCount) + ".bmp";
+    picName = camID +"_images/pic" + std::to_string(frameCount) + ".bmp";
+    //picName = "images/pic" + std::to_string(frameCount) + ".bmp";
 }
 }}} // namespace AVT::VmbAPI::Examples

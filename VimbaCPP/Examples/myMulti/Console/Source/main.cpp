@@ -3,7 +3,7 @@
 #include <algorithm>
 #include <sstream>
 #include <string>
-#include <thread>
+#include <sys/stat.h>
 
 #include "VimbaCPP/Include/VimbaCPP.h"
 #include "Common/StreamSystemInfo.h"
@@ -15,7 +15,7 @@
 #define CAMERA_COUNT 3
 #define LOG(x) std::cout<<x<<std::endl;
 
-
+//some function declarations
 std::string cmdParse(int argc, char* argv[]);
 void printHelp(char* argv[]);
 
@@ -46,6 +46,7 @@ int main(int argc, char* argv[])
         
         Config.setCameraID(camID);
         std::cout<<"Setting Camera: "<<camID<<"\n";
+
 
         AVT::VmbAPI::CameraPtrVector cameras; //initialize the camera list
         VmbFrameStatusType status = VmbFrameStatusIncomplete;
@@ -84,7 +85,14 @@ int main(int argc, char* argv[])
 
             if(err == VmbErrorSuccess) //the loop will need to start in this scope
             {   
-                
+                //create the unique folder to save the camera images in
+                if(mkdir(camID + "_images",0777) == 0)
+                {
+                    LOG("Creating images folder for camera " + camID);
+                }
+                else {LOG("POTENTIAL ERROR: Folder not created. Not a problem if folder already exists");}
+
+
                 std::cout<<"Opening camera with ID: "<<camID<<std::endl;
                 control.setCameraID(camID);
                 err = control.StartContinuousImageAcquisition(Config);
