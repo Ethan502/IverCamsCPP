@@ -154,8 +154,8 @@ void WriteToBitmap(AVT::VmbAPI::FramePtr pFrame,std::string picName)
                                 }
                                 else
                                 {
-                                    std::cout<<"logged"<<std::endl;
-                                    LOG("Bitmap successfully written to file");
+                                    //std::cout<<"logged"<<std::endl;
+                                    //LOG("Bitmap successfully written to file");
                                     //LOG("Ran"+std::to_string(i));
                                     //release the bitmap buffer
                                     if(0 == AVTReleaseBitmap(&bitmap))

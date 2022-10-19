@@ -86,7 +86,9 @@ int main(int argc, char* argv[])
             if(err == VmbErrorSuccess) //the loop will need to start in this scope
             {   
                 //create the unique folder to save the camera images in
-                if(mkdir(camID + "_images",0777) == 0)
+                std::string sFolderName = camID + "_images";
+                const char* folderName = sFolderName.c_str();
+                if(mkdir(folderName,0777) == 0)
                 {
                     LOG("Creating images folder for camera " + camID);
                 }

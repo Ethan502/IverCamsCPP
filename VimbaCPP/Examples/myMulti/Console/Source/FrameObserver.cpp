@@ -372,7 +372,7 @@ void FrameObserver::FrameReceived( const FramePtr pFrame )
     WriteToBitmap(pFrame,picName);
     auto stop = std::chrono::high_resolution_clock::now();
     auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
-    std::cout << "The bitmap took " << duration.count() << " milliseconds." << std::endl;
+    //std::cout << "The bitmap took " << duration.count() << " milliseconds." << std::endl;
 
     m_pCamera->QueueFrame(pFrame);
     frameCount++;
