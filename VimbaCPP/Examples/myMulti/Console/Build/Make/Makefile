@@ -1,4 +1,4 @@
-PROJECT_NAME            = myMulti
+PROJECT_NAME            = cameraCapture
 
 PROJECT_DIR             = ../..
 EXAMPLES_DIR            = $(PROJECT_DIR)/../..

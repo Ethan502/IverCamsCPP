@@ -18,6 +18,7 @@
 //some function declarations
 std::string cmdParse(int argc, char* argv[]);
 void printHelp(char* argv[]);
+const std::string currentDateTime();
 
 int main(int argc, char* argv[])
 {
@@ -36,10 +37,6 @@ int main(int argc, char* argv[])
     }
     else
     {
-        // if ( NULL == pFileName )
-        // {
-        //     pFileName = "SynchronousGrab.bmp";
-        // }
 
         AVT::VmbAPI::Examples::ApiController control;
         std::cout<<"Vimba C++ API Version: "<<control.GetVersion()<<std::endl; //print the current version
@@ -85,8 +82,22 @@ int main(int argc, char* argv[])
 
             if(err == VmbErrorSuccess) //the loop will need to start in this scope
             {   
+                std::string currDate = currentDateTime();
+
+                for(int i = 0; i < currDate.size(); i++)
+                {
+                    if(currDate.at(i) == '.')
+                    {
+                        currDate.at(i) = '_';
+                    } 
+                    if(currDate.at(i)== ':')
+                    {
+                        currDate.at(i) = '-';
+                    }
+                }
+
                 //create the unique folder to save the camera images in
-                std::string sFolderName = camID + "_images";
+                std::string sFolderName = camID + "_images_" + currDate;
                 const char* folderName = sFolderName.c_str();
                 if(mkdir(folderName,0777) == 0)
                 {
@@ -144,4 +155,14 @@ void printHelp(char* argv[])
     std::cout<<"To use the executable " << argv[0] << ", enter the command in like this:"<<std::endl<<std::endl;
     std::cout<<"\t\t ./FILE_NAME.exe <cam_id>"<<std::endl<<std::endl;
     std::cout<<"Camera ID's look something like: \'DEV_000F314F3265\'. Only one ID can be accepted as an argument"<<std::endl<<std::endl;
+}
+
+const std::string currentDateTime() {
+    time_t     now = time(0);
+    struct tm  tstruct;
+    char       buf[80];
+    tstruct = *localtime(&now);
+    strftime(buf, sizeof(buf), "%Y-%m-%d.%X", &tstruct);
+
+    return buf;
 }

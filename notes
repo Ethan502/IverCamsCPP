@@ -1,0 +1,9 @@
+I need to remake the python file that has the save/load settings functionality. I think that I can make the camera settings better. Maybe make it easier to use from the command line.
+
+Next I also need to add some additional documentation to the code, as well as organize the files a little bit more so that the code will run properly without having to sort through a bunch of directories
+
+delete extra remote branches
+
+Make the cameras pausable, without having to overwrite the file and/or restart the executable
+
+add the list cameras executable as well, so that we know which ones are in the iver
