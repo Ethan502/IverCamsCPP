@@ -107,7 +107,7 @@ Print all features of camera 'DEV_000F314F3265':
 /// Unit           : 
 /// Value          : Red
 
-/// Feature name   : BalanceWhiteAuto
+/// Feature name   : BalanceWhiteAuto----------------------------------
 /// Display name   : BalanceWhiteAuto
 /// Tooltip        : Method used to set White Balance values. Off: automatic mode is off. Once: auto-whitebalance occurs until target is achieved, then BalanceWhiteAuto returns to Off. Continuous: auto-whitebalance always runs.
 /// Description    : Method used to set White Balance values. Off: automatic mode is off. Once: auto-whitebalance occurs until target is achieved, then BalanceWhiteAuto returns to Off. Continuous: auto-whitebalance always runs.
@@ -131,7 +131,7 @@ Print all features of camera 'DEV_000F314F3265':
 /// Unit           : 
 /// Value          : 100
 
-/// Feature name   : BandwidthControlMode
+/// Feature name   : BandwidthControlMode-------------------------------------
 /// Display name   : BandwidthControlMode
 /// Tooltip        : Bandwidth allocation can be controlled by StreamBytesPerSecond, or by register SCPD0. If you do not understand SCPD0 and how this driver uses this register, leave this set to "StreamBytesPerSecond".
 /// Description    : Bandwidth allocation can be controlled by StreamBytesPerSecond, or by register SCPD0. If you do not understand SCPD0 and how this driver uses this register, leave this set to "StreamBytesPerSecond".
@@ -155,7 +155,7 @@ Print all features of camera 'DEV_000F314F3265':
 /// Unit           : 
 /// Value          : 1
 
-/// Feature name   : BlackLevel
+/// Feature name   : BlackLevel-------------------------------------------------
 /// Display name   : BlackLevel
 /// Tooltip        : Black level (offset) value.
 /// Description    : Black level (offset) value.
@@ -163,7 +163,7 @@ Print all features of camera 'DEV_000F314F3265':
 /// Unit           : 
 /// Value          : 28.0
 
-/// Feature name   : BlackLevelSelector
+/// Feature name   : BlackLevelSelector--------------------------------------------
 /// Display name   : BlackLevelSelector
 /// Tooltip        : Selects which Black Level is controlled by the various Black Level features.
 /// Description    : Selects which Black Level is controlled by the various Black Level features.
