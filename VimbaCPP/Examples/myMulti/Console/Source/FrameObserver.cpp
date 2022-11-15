@@ -51,7 +51,7 @@ namespace Examples {
 //  [in]    eFrameInfos         Indicates how the frame will be displayed
 //  [in]    eColorProcessing    Indicates how color processing is applied
 //
-FrameObserver::FrameObserver( CameraPtr pCamera, FrameInfos eFrameInfos, ColorProcessing eColorProcessing, bool bRGBValue, std::string camIdentity )
+FrameObserver::FrameObserver( CameraPtr pCamera, FrameInfos eFrameInfos, ColorProcessing eColorProcessing, bool bRGBValue, std::string camIdentity, std::string theFileName )
     :   IFrameObserver( pCamera )
     ,   m_eFrameInfos( eFrameInfos )
     ,   m_bRGB( bRGBValue )
@@ -59,6 +59,7 @@ FrameObserver::FrameObserver( CameraPtr pCamera, FrameInfos eFrameInfos, ColorPr
     ,   picName( "pic0.bmp") //trying to start the photo name here
     ,   frameCount( 0 )     //initialize the counter
     ,   camID( camIdentity )
+    ,   fileName( theFileName )
 #ifdef WIN32
     ,   m_dFrequency( 0.0 )
 #endif //WIN32
@@ -368,15 +369,11 @@ void FrameObserver::FrameReceived( const FramePtr pFrame )
     {
         std::cout <<" frame pointer NULL\n";
     }
-    auto start = std::chrono::high_resolution_clock::now();
+    
     WriteToBitmap(pFrame,picName);
-    auto stop = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(stop - start);
-    //std::cout << "The bitmap took " << duration.count() << " milliseconds." << std::endl;
 
     m_pCamera->QueueFrame(pFrame);
     frameCount++;
-    picName = camID +"_images/pic" + std::to_string(frameCount) + ".bmp";
-    //picName = "images/pic" + std::to_string(frameCount) + ".bmp";
+    picName = fileName +"/pic" + std::to_string(frameCount) + ".bmp";
 }
 }}} // namespace AVT::VmbAPI::Examples

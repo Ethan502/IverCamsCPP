@@ -98,8 +98,9 @@ void ApiController::ShutDown()
 // Returns:
 //  An API status code
 //
-VmbErrorType ApiController::StartContinuousImageAcquisition( const ProgramConfig& Config )
+VmbErrorType ApiController::StartContinuousImageAcquisition( const ProgramConfig& Config, std::string paramFileName )
 {
+
     // Open the desired camera by its ID
     VmbErrorType res = m_system.OpenCameraByID( Config.getCameraID().c_str(), VmbAccessModeFull, m_pCamera );
     if ( VmbErrorSuccess == res )
@@ -138,7 +139,7 @@ VmbErrorType ApiController::StartContinuousImageAcquisition( const ProgramConfig
             if ( VmbErrorSuccess == res )
             {
                 // Create a frame observer for this camera (This will be wrapped in a shared_ptr so we don't delete it)
-                m_pFrameObserver = new FrameObserver( m_pCamera, Config.getFrameInfos(), Config.getColorProcessing(), Config.getRGBValue(), camID );
+                m_pFrameObserver = new FrameObserver( m_pCamera, Config.getFrameInfos(), Config.getColorProcessing(), Config.getRGBValue(), camID, paramFileName );
                 // Start streaming
                 res = m_pCamera->StartContinuousImageAcquisition( NUM_FRAMES, IFrameObserverPtr( m_pFrameObserver ), Config.getAllocAndAnnounce() ? FrameAllocation_AllocAndAnnounceFrame : FrameAllocation_AnnounceFrame );
             }

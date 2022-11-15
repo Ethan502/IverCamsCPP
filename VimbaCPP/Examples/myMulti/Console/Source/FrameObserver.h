@@ -53,7 +53,7 @@ public:
     //  [in]    eFrameInfos         Indicates how the frame will be displayed
     //  [in]    eColorProcessing    Indicates how color processing is applied
     //
-    FrameObserver( CameraPtr pCamera, FrameInfos eFrameInfos, ColorProcessing eColorProcessing, bool bRGBValue, std::string camIdentity);
+    FrameObserver( CameraPtr pCamera, FrameInfos eFrameInfos, ColorProcessing eColorProcessing, bool bRGBValue, std::string camIdentity, std::string theFileName);
     
     //
     // This is our callback routine that will be executed on every received frame.
@@ -107,6 +107,8 @@ private:
     unsigned int                frameCount; //added, count the number of frames saved
     std::string                 picName; //added, save the name of the pic
     std::string                 camID;
+    std::string                 fileName;
+
 #ifdef WIN32
     double      m_dFrequency;
 #endif //WIN32

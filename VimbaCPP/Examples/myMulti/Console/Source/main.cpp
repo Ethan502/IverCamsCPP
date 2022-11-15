@@ -108,7 +108,7 @@ int main(int argc, char* argv[])
 
                 std::cout<<"Opening camera with ID: "<<camID<<std::endl;
                 control.setCameraID(camID);
-                err = control.StartContinuousImageAcquisition(Config);
+                err = control.StartContinuousImageAcquisition(Config,folderName);
 
                 if(VmbErrorSuccess == err)
                 {
