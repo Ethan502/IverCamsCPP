@@ -153,7 +153,7 @@ std::string cmdParse(int argc, char* argv[]) //function to get the camera ID fro
 void printHelp(char* argv[])
 {
     std::cout<<"To use the executable " << argv[0] << ", enter the command in like this:"<<std::endl<<std::endl;
-    std::cout<<"\t\t ./FILE_NAME.exe <cam_id>"<<std::endl<<std::endl;
+    std::cout<<"\t\t ./FILE_NAME <cam_id>"<<std::endl<<std::endl;
     std::cout<<"Camera ID's look something like: \'DEV_000F314F3265\'. Only one ID can be accepted as an argument"<<std::endl<<std::endl;
 }
 

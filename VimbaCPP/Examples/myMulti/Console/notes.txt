@@ -1,0 +1,11 @@
+gcc -c <all .cpp files>
+    -- this will create the .o files
+
+ar cr <libname.a> <all .o files you want to use>
+    -- the library name must start with lib
+    -- ar t <libname.a>
+        -- list all the .o files in the library
+
+put the library into its designated folder
+
+gcc <main.cpp> -l<name of library to link> -o <executable name> -I <include dir> -L <library dir> -static
